@@ -1,5 +1,3 @@
-# Highlights
-
 This is just a record of random stuff I found interesting or thought of on the toilet. None of it means anything.
 
 > "Kimi adjusts his position, empties the bottle of Penta and burps." - _The Unknown Kimi Räikkönen, Kari Hotakainen_
