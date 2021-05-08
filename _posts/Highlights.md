@@ -1,0 +1,7 @@
+# Highlights
+
+This is just a record of random stuff I found interesting. None of it means anything.
+
+> "For his next experiment, he designed four so-called _monster mothers_. Each possessed a comforting cloth body, but they were also armed respectively with brass spikes, an air-blaster, an ability to fling their charge away or to rock it so violently you could hear the baby monkey's teeth clashing together. Despite the discomfort, the infants kept clinging on, willing to face even pain in their quest for affection, for something soft to cuddle up to." - _Olivia Laing, The Lonely City_
+
+> "Finally he hit me in the face with the rat. I took a baseball bat and put him in the Johns Hopkins Hospital." - _Billie Holiday, Lady Sings The Blues_
