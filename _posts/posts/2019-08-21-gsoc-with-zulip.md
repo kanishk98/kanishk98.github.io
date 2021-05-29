@@ -1,5 +1,5 @@
 ---
-title: "GSoC with Zulip"
+title: "Google Summer of Code"
 published: true
 categories: posts
 ---
