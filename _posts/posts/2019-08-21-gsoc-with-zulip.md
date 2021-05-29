@@ -1,6 +1,7 @@
 ---
 title: "GSoC with Zulip"
 published: true
+categories: posts
 ---
 
 I've been putting off writing a blog for a while, but as my GSoC coding period comes to an end, I thought it'd be a good idea to write about what I worked on and what I learnt from working with Zulip as a GSoC student. 
