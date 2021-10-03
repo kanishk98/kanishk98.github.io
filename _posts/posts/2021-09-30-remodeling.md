@@ -4,7 +4,7 @@ published: true
 categories: posts
 ---
 
-I'm beginning to dislike the look of this place. I mean, this is just whatever default template GitHub Pages came with, and don't get me wrong, it's very clean and does the job very well. I'd just like to have some more design input here. Think of it as buying fancy stationary when preparing for a test only to find that you spent all your time figuring out which pencils to buy. That would have been stupid a year ago, but now I'm done with my undergrad, and if I'm going to have to pay bills like an adult, might as well make some of them out to fancy little pencils. 
+I'm beginning to dislike the look of this place. I mean, this is just whatever default template GitHub Pages came with, and don't get me wrong, it's very clean and does the job very well. I'd just like to have some more design input here. Think of it as buying fancy stationery when preparing for a test only to find that you spent all your time figuring out which pencils to buy. That would have been stupid a year ago, but now I'm done with my undergrad, and if I'm going to have to pay bills like an adult, might as well make some of them out to fancy little pencils. 
 
 So I will go ahead and embrace the contrarian view that is now mainstream because of people such as myself trying desperately hard to look cool. I will go completely bonkers skeumorphic and change this place to an iPod. One of those classics. I never had one, but I would have loved to. They look so unbelievably cool! I cannot _believe_ Apple doesn't make them anymore. 
 
