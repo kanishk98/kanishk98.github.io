@@ -27,9 +27,7 @@ Anyway, here's what I read in 21 (I don't include links because it's hard work. 
 * Sybil, Flora Rheta Schreiber (alright, so I came across this one when reading about [Sybil attacks](https://en.wikipedia.org/wiki/Sybil_attack) and it sounded suspiciously like Mr Robot, so I had to)
 * The Broom of the System, David Foster Wallace
 * I Know Why the Caged Bird Sings, Maya Angelou (I know, I know, should've bought it a million years ago)
-* Harry Potter and the Order of the Phoenix, JK Rowling (compulsory re-read, times were unprecedented)
 * Liar's Poker, Michael Lewis (I bought it because of the Big Short, and I watched the Big Short because of Margot Robbie)
-* The Casual Vacancy, JK Rowling (I was thinking of a friend when I re-read this one. I haven't seen her in years. She's gone completely off the grid since I last spoke to her, which is also when I had lent her my copy of this book. I hope she's well). 
 * A Writer's Diary, Virginia Woolf 
 * The Death and Life of Great American Cities, Jane Jacobs
 * Rules of Civility, Amor Towles
