@@ -43,4 +43,6 @@ I've started 2022 well, actually! So far, I've read:
 * Contempt, Alberto Moravia (I didn't know people could write this well. Toxic, of course, but beautiful)
 * Outline, Rachel Cusk
 
-Happy New Year to you. I hope this one is kinder. I hope everyone finds the agency to take care of themselves and the people they love. I'll go back to my blanket now. 
+Happy New Year to you. I hope this one is kinder. I hope everyone finds the agency to take care of themselves and the people they love. I hope we need fewer books to get by. 
+
+Thank you for sticking with me till here, I realise this was a long one! I'll go back to my blanket now. 
