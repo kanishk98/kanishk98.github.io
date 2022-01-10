@@ -24,7 +24,7 @@ plugins:
 - jekyll-paginate
 
 # 3. Gem settings
-paginate: 2 # jekyll-paginate > items per page
+paginate: 5 # jekyll-paginate > items per page
 paginate_path: page:num # jekyll-paginate > blog page
 
 # 4. Jekyll settings
@@ -32,14 +32,14 @@ sass:
   style: compressed # Style compression
 permalink: pretty  # Permalink style (/YYYY/MM/DD/page-name/)
 excerpt_separator: <!-- more --> # Marks end of excerpt in posts
-timezone: Europe/London # Timezone for blog posts and alike
+timezone: India # Timezone for blog posts and alike
 
 # 5. Collections
 collections:
   posts:
     title: Blog # Needed for Siteleaf
     output: true
-    description: "This is merely a demo, find out more [about Garth](about)" # The post list page content
+#     description: "This is merely a demo, find out more [about Garth](about)" # The post list page content
 
 # 6. Jekyll collections settings
 defaults:
@@ -58,10 +58,9 @@ defaults:
 
 # 7. Site settings
 encoding: utf-8 # Make sure the encoding is right
-title: "Garth" # Site name or title
-logo: "/assets/logo.svg" # Site logo
+title: "Kanishk Kakar" # Site name or title
 # favicon: "/favicon.ico" # Uncomment to add custom favicon, or leave as is to use site logo
-description: "A really basic theme for Jekyll, using the official Jekyll theme implementation" # Site description and default description
-url: "https://garth.darn.es" # Site url
+description: "Kanishk's website" # Site description and default description
+url: "http://kanishkkakar.com" # Site url
 baseurl: ""
 lang: en-GB
