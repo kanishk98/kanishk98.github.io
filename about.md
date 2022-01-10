@@ -1,7 +1,5 @@
 ---
 title: "Hello!"
-published: true
-categories: about
 ---
 
 _oooooh yessss look at me gimme attention_

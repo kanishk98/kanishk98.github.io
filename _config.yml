@@ -1,48 +1,66 @@
-layout: stacked
-style: light
+# Site configuration
+# 1. Files excluded from Jekyll builds
+# 2. Installed Gems
+# 3. Gem settings
+# 4. Jekyll settings
+# 5. Collections
+# 6. Jekyll collections settings
+# 7. Site settings
 
+# 1. Files excluded from Jekyll builds
+exclude:
+- README.md
+- CODE_OF_CONDUCT.md
+- CONTRIBUTING.md
+- screenshot.png
+- LICENSE
+- CNAME
+- Gemfile
+- Gemfile.lock
+- garth-jekyll-theme.gemspec
+
+# 2. Installed Gems
 plugins:
-  - jekyll-octicons
-  - jekyll-github-metadata
-  - jemoji
+- jekyll-paginate
 
-permalink: /:year/:month/:day/:title/
+# 3. Gem settings
+paginate: 5 # jekyll-paginate > items per page
+paginate_path: page:num # jekyll-paginate > blog page
 
+# 4. Jekyll settings
+sass:
+  style: compressed # Style compression
+permalink: pretty  # Permalink style (/YYYY/MM/DD/page-name/)
+excerpt_separator: <!-- more --> # Marks end of excerpt in posts
+timezone: India # Timezone for blog posts and alike
+
+# 5. Collections
+collections:
+  posts:
+    title: Blog # Needed for Siteleaf
+    output: true
+#     description: "This is merely a demo, find out more [about Garth](about)" # The post list page content
+
+# 6. Jekyll collections settings
 defaults:
   -
     scope:
-      path: "" # an empty string here means all files in the project
-      type: "posts"
+      path: ""
+      type: pages
     values:
-      layout: "post"
+      layout: page # Default layout
+  -
+    scope:
+      path: ""
+      type: posts
+    values:
+      layout: post # Default layout
 
-projects:
-  sort_by: pushed
-  # sort_by options:
-  #   - pushed
-  #   - stars
-  limit: 6
-  exclude:
-    archived: false
-    forks: true
-    projects:
-    - desktop
-    - zulip
-
-# social_media:
-  # behance: your_username
-  # dribbble: your_username
-  # facebook: your_username
-  # hackerrank: your_username
-  # instagram: your_username
-  # keybase: your_username
-  # linkedin: your_username
-  # mastodon: your_username
-  # medium: your_username
-  # stackoverflow: your_user_id
-  # telegram: your_username
-  twitter: kanishk_kakar
-  # unsplash: your_username
-  # vk: your_username
-  # website: http://your_website_url
-  # youtube: your_username
+# 7. Site settings
+encoding: utf-8 # Make sure the encoding is right
+title: "Kanishk Kakar" # Site name or title
+# favicon: "/favicon.ico" # Uncomment to add custom favicon, or leave as is to use site logo
+description: "Kanishk's website" # Site description and default description
+url: "http://kanishkkakar.com" # Site url
+baseurl: ""
+lang: en-GB
