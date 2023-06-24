@@ -17,7 +17,6 @@ exclude:
 - CNAME
 - Gemfile
 - Gemfile.lock
-- garth-jekyll-theme.gemspec
 
 # 2. Installed Gems
 plugins:
@@ -37,7 +36,7 @@ timezone: India # Timezone for blog posts and alike
 # 5. Collections
 collections:
   posts:
-    title: Blog # Needed for Siteleaf
+    title: Kanishk Kakar # Needed for Siteleaf
     output: true
 #     description: "This is merely a demo, find out more [about Garth](about)" # The post list page content
 
