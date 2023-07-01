@@ -6,7 +6,7 @@
     </div>
   </div>
   <script>
-    let daysRemaining = Math.floor((1690828200000 - Date.now()) / (24 * 60 * 60 * 1000));
+    let daysRemaining = Math.max(Math.floor((1690828200000 - Date.now()) / (24 * 60 * 60 * 1000)), 0);
     document.getElementById('tiwari').textContent = `${daysRemaining} days remaining till Tiwari's leg is declared fixed!`
   </script>
 </footer>
