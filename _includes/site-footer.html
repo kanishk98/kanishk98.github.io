@@ -1,7 +1,12 @@
-<!-- <footer class="footer">
+<footer class="footer">
   <div class="container">
     <div class="copyright  typeset">
-      <small class="small">&copy; {{ site.title }} {{ site.time | date: '%Y' }}</small>
+      <small class="small" id="tiwari">
+      </small>
     </div>
   </div>
-</footer> -->
+  <script>
+    let daysRemaining = Math.floor((1690828200000 - Date.now()) / (24 * 60 * 60 * 1000));
+    document.getElementById('tiwari').textContent = `${daysRemaining} days remaining till Tiwari's leg is declared fixed!`
+  </script>
+</footer>
