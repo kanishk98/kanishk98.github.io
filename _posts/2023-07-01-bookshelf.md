@@ -20,6 +20,8 @@ Grouping my now-made-memorable-shelf by author:
 
 * The Pale King, David Foster Wallace
 
+* Consider the Lobster, David Foster Wallace
+
 * Brief Interviews with Hideous Men, David Foster Wallace
 
 * A Supposedly Fun Thing I'll Never Do Again, David Foster Wallace
@@ -43,6 +45,26 @@ Grouping my now-made-memorable-shelf by author:
 * Eve's Hollywood, Eve Babitz
 
 * Slow Days, Fast Company, Eve Babitz
+
+* The Stupid Hour, Rachel Kroll
+
+* In Love, Alfred Hayes
+
+* The Death and Life of Great American Cities, Jane Jacobs
+
+* Who Gets What and Why, Alvin Roth
+
+* Dataclysm, Christian Rudder
+
+* The Design of Everyday Things, Don Norman
+
+* Masters of Doom, David Kushner
+
+* Rules of Civility, Amor Towles
+
+* A Writer's Diary, Virginia Woolf
+
+* Total Competition, Ross Brawn and Adam Parr
 
 * The Years, Annie Ernaux
 
