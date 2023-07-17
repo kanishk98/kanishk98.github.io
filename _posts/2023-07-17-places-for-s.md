@@ -1,6 +1,8 @@
 ---
-title: "Places for S"
+title: "places for s"
 --- 
+
+yet another list. this one is probably my favourite. 
 
 * copper and cloves
 
