@@ -28,6 +28,8 @@ In no particular order, please find below my deeply personal set of first-world 
 
 * Not using _sorry_ and _thank you_ as frequently as general civility (and if you're part of this group, most probably also your behaviour) would require you to, 
 
-* Conflating being opinionated with being dismissive, 
+* Conflating being opinionated with being dismissive,
+
+* Choosing an underground??? basement??? parking lot??? during a morning walk,
 
 I've kept the trailing comma there because I'm tired now and I intend to keep coming back to this list. I think writing down your thoughts automatically validates them, even if no one ever happens to read or agree. 
