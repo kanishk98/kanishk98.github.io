@@ -30,6 +30,6 @@ In no particular order, please find below my deeply personal set of first-world 
 
 * Conflating being opinionated with being dismissive,
 
-* Choosing an underground??? basement??? parking lot??? during a morning walk,
+* Choosing an underground??? basement??? parking lot??? for a morning walk,
 
 I've kept the trailing comma there because I'm tired now and I intend to keep coming back to this list. I think writing down your thoughts automatically validates them, even if no one ever happens to read or agree. 
