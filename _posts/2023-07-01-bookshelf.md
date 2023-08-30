@@ -70,6 +70,8 @@ Grouping my now-made-memorable-shelf by author:
 
 * Compass, Mathias Enard
 
+* The Soul of a New Machine, Tracy Kidder
+
 * The Innovator's Dilemma, Clay Christensen
 
 * How Will You Measure Your Life, Clay Christensen, James Allworth, and Karen Dillon
