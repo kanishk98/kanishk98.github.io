@@ -2,7 +2,6 @@
 <script>
     class MouseTrail {
         constructor() {
-            this.isDesktop = this.detectDesktop();
             this.currentColor = this.getRandomColor();
             this.nextColorTime = Date.now() + this.getRandomInterval();
             this.paintStrokes = [];
@@ -12,7 +11,7 @@
             this.canvas.style.position = 'fixed';
             this.canvas.style.top = '0';
             this.canvas.style.left = '0';
-            this.canvas.style.zIndex = '-1';
+            this.canvas.style.zIndex = '9999';
             this.canvas.style.pointerEvents = 'none';
             this.canvas.width = window.innerWidth;
             this.canvas.height = window.innerHeight;
@@ -25,12 +24,7 @@
                 this.canvas.height = window.innerHeight;
             });
             
-            if (this.isDesktop) {
-                this.initDesktop();
-            } else {
-                this.initMobile();
-            }
-            
+            this.init();
             this.animatePaint();
         }
 
@@ -38,18 +32,15 @@
             return !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         }
 
-        initDesktop() {
+        init() {
             document.addEventListener('mousemove', (e) => this.onMouseMove(e));
-        }
-
-        initMobile() {
             document.addEventListener('touchmove', (e) => this.onTouchMoveMobile(e), false);
         }
 
         getRandomColor() {
             const colors = [
                 '#FF6B9D', '#C44569', '#FFA502', '#FB6D48',
-                '#FF1654', '#00D2FC', '#3A86FF', '#8338EC',
+                '#FF1654', '#00D2FC', '#3A86FF',
                 '#FB5607', '#FFBE0B', '#03DAC6', '#FF006E',
                 '#00F5FF', '#00FF88', '#FFD700', '#FF4081'
             ];
@@ -69,18 +60,18 @@
 
         onMouseMove(e) {
             this.updateColor();
-            this.paintBrushStroke(e.clientX, e.clientY, true);
+            this.paintBrushStroke(e.clientX, e.clientY);
         }
 
         onTouchMoveMobile(e) {
             this.updateColor();
             
             for (let touch of e.touches) {
-                this.paintBrushStroke(touch.clientX, touch.clientY, false);
+                this.paintBrushStroke(touch.clientX, touch.clientY);
             }
         }
 
-        paintBrushStroke(x, y, isPermanent) {
+        paintBrushStroke(x, y) {
             const brushSize = 15 + Math.random() * 20;
             this.paintStrokes.push({
                 x: x,
@@ -89,7 +80,7 @@
                 color: this.currentColor,
                 life: 1,
                 createdAt: Date.now(),
-                permanent: isPermanent
+                permanent: false // All strokes are temporary now
             });
         }
 
@@ -97,10 +88,6 @@
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             
             this.paintStrokes = this.paintStrokes.filter(stroke => {
-                if (stroke.permanent) {
-                    return true;
-                }
-                
                 const age = Date.now() - stroke.createdAt;
                 stroke.life = Math.max(0, 1 - (age / 2000));
                 return stroke.life > 0;
@@ -108,7 +95,7 @@
             
             this.paintStrokes.forEach(stroke => {
                 this.ctx.fillStyle = stroke.color;
-                this.ctx.globalAlpha = 0.6 * stroke.life;
+                this.ctx.globalAlpha = 0.8 * stroke.life;
                 this.ctx.beginPath();
                 this.ctx.arc(stroke.x, stroke.y, stroke.size / 2, 0, Math.PI * 2);
                 this.ctx.fill();
@@ -136,6 +123,6 @@
         pointer-events: none;
         transform-origin: center;
         filter: blur(2px);
-        opacity: 0.6;
+        opacity: 0.5;
     }
 </style>
