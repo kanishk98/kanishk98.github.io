@@ -1,0 +1,141 @@
+<!--TODO: the colors could use some work. -->
+<script>
+    class MouseTrail {
+        constructor() {
+            this.isDesktop = this.detectDesktop();
+            this.currentColor = this.getRandomColor();
+            this.nextColorTime = Date.now() + this.getRandomInterval();
+            this.paintStrokes = [];
+            
+            this.canvas = document.createElement('canvas');
+            this.canvas.id = 'paint-canvas';
+            this.canvas.style.position = 'fixed';
+            this.canvas.style.top = '0';
+            this.canvas.style.left = '0';
+            this.canvas.style.zIndex = '-1';
+            this.canvas.style.pointerEvents = 'none';
+            this.canvas.width = window.innerWidth;
+            this.canvas.height = window.innerHeight;
+            document.body.appendChild(this.canvas);
+            
+            this.ctx = this.canvas.getContext('2d');
+            
+            window.addEventListener('resize', () => {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            });
+            
+            if (this.isDesktop) {
+                this.initDesktop();
+            } else {
+                this.initMobile();
+            }
+            
+            this.animatePaint();
+        }
+
+        detectDesktop() {
+            return !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+
+        initDesktop() {
+            document.addEventListener('mousemove', (e) => this.onMouseMove(e));
+        }
+
+        initMobile() {
+            document.addEventListener('touchmove', (e) => this.onTouchMoveMobile(e), false);
+        }
+
+        getRandomColor() {
+            const colors = [
+                '#FF6B9D', '#C44569', '#FFA502', '#FB6D48',
+                '#FF1654', '#00D2FC', '#3A86FF', '#8338EC',
+                '#FB5607', '#FFBE0B', '#03DAC6', '#FF006E',
+                '#00F5FF', '#00FF88', '#FFD700', '#FF4081'
+            ];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        getRandomInterval() {
+            return 800 + Math.random() * 1200;
+        }
+
+        updateColor() {
+            if (Date.now() > this.nextColorTime) {
+                this.currentColor = this.getRandomColor();
+                this.nextColorTime = Date.now() + this.getRandomInterval();
+            }
+        }
+
+        onMouseMove(e) {
+            this.updateColor();
+            this.paintBrushStroke(e.clientX, e.clientY, true);
+        }
+
+        onTouchMoveMobile(e) {
+            this.updateColor();
+            
+            for (let touch of e.touches) {
+                this.paintBrushStroke(touch.clientX, touch.clientY, false);
+            }
+        }
+
+        paintBrushStroke(x, y, isPermanent) {
+            const brushSize = 15 + Math.random() * 20;
+            this.paintStrokes.push({
+                x: x,
+                y: y,
+                size: brushSize,
+                color: this.currentColor,
+                life: 1,
+                createdAt: Date.now(),
+                permanent: isPermanent
+            });
+        }
+
+        animatePaint() {
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            
+            this.paintStrokes = this.paintStrokes.filter(stroke => {
+                if (stroke.permanent) {
+                    return true;
+                }
+                
+                const age = Date.now() - stroke.createdAt;
+                stroke.life = Math.max(0, 1 - (age / 2000));
+                return stroke.life > 0;
+            });
+            
+            this.paintStrokes.forEach(stroke => {
+                this.ctx.fillStyle = stroke.color;
+                this.ctx.globalAlpha = 0.6 * stroke.life;
+                this.ctx.beginPath();
+                this.ctx.arc(stroke.x, stroke.y, stroke.size / 2, 0, Math.PI * 2);
+                this.ctx.fill();
+            });
+            
+            this.ctx.globalAlpha = 1.0;
+            requestAnimationFrame(() => this.animatePaint());
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => new MouseTrail());
+    } else {
+        new MouseTrail();
+    }
+</script>
+
+<style>
+    .trail-particle {
+        position: fixed;
+        border-radius: 50%;
+        background-color: var(--particle-color, #FF6B9D);
+        box-shadow: 0 0 10px var(--particle-color, #FF6B9D),
+            0 0 20px var(--particle-color, #FF6B9D);
+        pointer-events: none;
+        transform-origin: center;
+        filter: blur(2px);
+        opacity: 0.6;
+    }
+</style>
