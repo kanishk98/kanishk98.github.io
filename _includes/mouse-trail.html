@@ -2,6 +2,8 @@
 <script>
     class MouseTrail {
         constructor() {
+            this.currentColor = this.getRandomColor();
+            this.nextColorTime = Date.now() + this.getRandomInterval();
             this.paintStrokes = [];
             
             this.canvas = document.createElement('canvas');
@@ -45,11 +47,25 @@
             return colors[Math.floor(Math.random() * colors.length)];
         }
 
+        getRandomInterval() {
+            return 800 + Math.random() * 1200;
+        }
+
+        updateColor() {
+            if (Date.now() > this.nextColorTime) {
+                this.currentColor = this.getRandomColor();
+                this.nextColorTime = Date.now() + this.getRandomInterval();
+            }
+        }
+
         onMouseMove(e) {
+            this.updateColor();
             this.paintBrushStroke(e.clientX, e.clientY);
         }
 
         onTouchMoveMobile(e) {
+            this.updateColor();
+            
             for (let touch of e.touches) {
                 this.paintBrushStroke(touch.clientX, touch.clientY);
             }
@@ -61,10 +77,10 @@
                 x: x,
                 y: y,
                 size: brushSize,
-                color: this.getRandomColor(),
+                color: this.currentColor,
                 life: 1,
                 createdAt: Date.now(),
-                permanent: false
+                permanent: false // All strokes are temporary now
             });
         }
 
