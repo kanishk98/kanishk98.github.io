@@ -1,5 +1,5 @@
 ---
-title: "Major minor annoyances"
+title: "Major Minor Annoyances"
 ---
 
 I would like to think that every otherwise sane individual is driven to claw out their eyes in response to any of a deeply personal set of first-world grievances. I also realise that I should have better things to do at 3 AM on a Monday morning, but better things require good work and good work takes time. It's just easier to rant on the Internet. 
