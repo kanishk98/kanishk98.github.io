@@ -1,7 +1,7 @@
 ---
 title: "Shopping List"
 location: "Pittsburgh, PA"
-# published: false
+published: false
 ---
 
 - A blue Jag convertible, with one of those *dirty* V6 engines that growl when they start up (my best friend wants one, and perhaps in a self-fulfilling way, he always gets what he wants, so I suppose this is going to happen sometime anyway, might as well be through me)
