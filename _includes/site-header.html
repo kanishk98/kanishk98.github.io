@@ -1,6 +1,9 @@
 <header class="header">
-  <div class="container">
-    {% if site.logo %}{% include site-logo.html %}{% endif %}
-    {% include site-nav.html %}
+  <div class="header-container">
+    <div class="header-content">
+      {% if site.logo %}{% include site-logo.html %}{% endif %}
+      {% include site-nav.html %}
+    </div>
+    <a href="javascript:void(0);" onclick="toggleDarkMode()"; id="themeToggle">toggle dark mode</a>
   </div>
 </header>
