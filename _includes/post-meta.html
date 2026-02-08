@@ -11,8 +11,11 @@
 {% endif %}
 
 <div class="post-meta">
+  {% if page.show_date %}
+    {{ page.location }}
   <time datetime="{{ page.date | date_to_xmlschema }}" class="time">{{ page.date | date_to_string }}</time>
   <br>
+  {% endif %}
   {% if page.location %}
     {{ page.location }}
   {% else %}
