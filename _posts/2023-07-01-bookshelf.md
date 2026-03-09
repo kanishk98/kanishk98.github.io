@@ -1,5 +1,6 @@
 ---
 title: "Bookshelf"
+show_date: true
 ---
 
 Dad visited my Bangalore apartment a while ago and he complimented me on the books I'd been reading. This made me feel rather warm. It's common for friends to gloss over the contents of your shelf, but it's special when your dad, who taught you what <i>Yeah</i> means and laughed when you told him you'd been skipping over that word in dialogues, finds himself genuinely interested in a couple of your favourites and delivers a smile of approval. 
