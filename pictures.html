@@ -6,6 +6,7 @@ permalink: /pictures/
 <div id="photos" class="photo-grid">
   {% for photo in site.data.photos %}
   <a class="photo-item" href="#photo-lightbox-{{ forloop.index }}"
+       data-index="{{ forloop.index0 }}"
        style="--obj-pos: {{ photo.position | default: 'center center' }}">
     <img src="{{ photo.src | relative_url }}"
          alt="{{ photo.alt | default: '' }}"
@@ -17,36 +18,84 @@ permalink: /pictures/
   {% endfor %}
 </div>
 
-{% for photo in site.data.photos %}
-<div id="photo-lightbox-{{ forloop.index }}" class="photo-lightbox">
+<div id="photo-lightbox" class="photo-lightbox">
   <div class="photo-lightbox-content">
-    <img src="{{ photo.src | relative_url }}"
-         alt="{{ photo.alt | default: '' }}">
-    {% if photo.alt %}
-    <div class="photo-lightbox-caption">{{ photo.alt }}</div>
-    {% endif %}
+    <img id="photo-lightbox-img" src="" alt="">
+    <div id="photo-lightbox-caption" class="photo-lightbox-caption"></div>
   </div>
 </div>
-{% endfor %}
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    const lightboxes = document.querySelectorAll('.photo-lightbox');
+    const thumbnails = document.querySelectorAll('.photo-item');
+    const lightbox = document.getElementById('photo-lightbox');
+    const lightboxImage = document.getElementById('photo-lightbox-img');
+    const lightboxCaption = document.getElementById('photo-lightbox-caption');
+    const photoData = Array.from(thumbnails).map(function (thumb) {
+      return {
+        src: thumb.querySelector('img').getAttribute('src'),
+        alt: thumb.querySelector('img').getAttribute('alt'),
+        caption: thumb.dataset.alt || thumb.querySelector('img').getAttribute('alt'),
+      };
+    });
+    let currentIndex = -1;
 
-    lightboxes.forEach(function (lightbox) {
-      lightbox.addEventListener('click', function (event) {
-        if (event.target === lightbox) {
-          window.location.hash = '#photos';
-        }
+    function renderLightbox(index) {
+      const photo = photoData[index];
+      lightboxImage.src = photo.src;
+      lightboxImage.alt = photo.alt;
+      lightboxCaption.textContent = photo.caption;
+    }
+
+    function showLightbox(index) {
+      if (index < 0 || index >= photoData.length) return;
+      currentIndex = index;
+      renderLightbox(index);
+      lightbox.classList.add('active');
+      history.replaceState(null, '', '#photo-lightbox-' + (index + 1));
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      currentIndex = -1;
+      history.replaceState(null, '', '#photos');
+    }
+
+    thumbnails.forEach(function (thumb) {
+      thumb.addEventListener('click', function (event) {
+        event.preventDefault();
+        showLightbox(parseInt(thumb.dataset.index, 10));
       });
     });
 
-    document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape' || event.key === 'Esc') {
-        if (window.location.hash.startsWith('#photo-lightbox-')) {
-          window.location.hash = '#photos';
-        }
+    lightbox.addEventListener('click', function (event) {
+      if (event.target === lightbox) {
+        closeLightbox();
       }
     });
+
+    document.addEventListener('keydown', function (event) {
+      if (currentIndex === -1) return;
+      if (event.key === 'Escape' || event.key === 'Esc') {
+        event.preventDefault();
+        closeLightbox();
+        return;
+      }
+      if (event.key === 'ArrowRight' || event.key === 'Right') {
+        event.preventDefault();
+        showLightbox((currentIndex + 1) % photoData.length);
+      }
+      if (event.key === 'ArrowLeft' || event.key === 'Left') {
+        event.preventDefault();
+        showLightbox((currentIndex - 1 + photoData.length) % photoData.length);
+      }
+    });
+
+    if (window.location.hash.startsWith('#photo-lightbox-')) {
+      const index = parseInt(window.location.hash.replace('#photo-lightbox-', ''), 10) - 1;
+      if (!Number.isNaN(index) && index >= 0 && index < photoData.length) {
+        showLightbox(index);
+      }
+    }
   });
 </script>

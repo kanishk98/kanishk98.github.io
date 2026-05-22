@@ -10,10 +10,7 @@
 #   position: "center top"
 
 - src: /assets/photos/photo1.jpg
-  alt: Photo 1
+  alt: View from my desk
 
 - src: /assets/photos/photo2.jpg
-  alt: Photo 2
-
-- src: /assets/photos/photo3.jpg
-  alt: Photo 3
+  alt: Bus stop

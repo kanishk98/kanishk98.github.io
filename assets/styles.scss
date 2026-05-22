@@ -109,6 +109,16 @@ hr {
   flex: 1;
 }
 
+nav.nav {
+  position: relative;
+}
+
+nav.nav a.nav-link--center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 /* ---- Pictures page ---- */
 .photo-grid {
   display: grid;
@@ -180,14 +190,13 @@ hr {
   visibility: hidden;
   pointer-events: none;
   z-index: 9999;
-  transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+  transition: opacity 0.25s ease;
 }
 
-.photo-lightbox:target {
+.photo-lightbox.active {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transition-delay: 0s, 0s;
 }
 
 .photo-lightbox-content {
