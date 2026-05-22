@@ -1,0 +1,19 @@
+# Add your photos here. Each entry needs at minimum a `src` path.
+# `alt`      — screen-reader description (recommended)
+# `position` — CSS object-position value, e.g. "center top", "left center"
+#              Defaults to "center center". Useful for pinning the focal point
+#              of images with unusual aspect ratios.
+#
+# Example:
+# - src: /assets/photos/portrait.jpg
+#   alt: Mountain sunrise
+#   position: "center top"
+
+- src: /assets/photos/photo1.jpg
+  alt: Photo 1
+
+- src: /assets/photos/photo2.jpg
+  alt: Photo 2
+
+- src: /assets/photos/photo3.jpg
+  alt: Photo 3
