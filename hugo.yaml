@@ -1,0 +1,18 @@
+baseURL: http://kanishkkakar.com
+disablePathToLower: true
+locale: en-us
+title: Kanishk Kakar
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
+menus:
+  main:
+    - name: home
+      url: /
+      weight: 1
+    - name: photos
+      url: /photos
+      weight: 2

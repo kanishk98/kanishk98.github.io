@@ -1,0 +1,10 @@
+{{ define "main" }}
+<ul class="post-list">
+  {{ range (where .Site.RegularPages "Section" "post").ByDate.Reverse }}
+  <li>
+    <span class="post-date">{{ .Date.Format "Jan 2, 2006" }}</span>
+    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+  </li>
+  {{ end }}
+</ul>
+{{ end }}

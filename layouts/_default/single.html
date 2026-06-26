@@ -1,0 +1,6 @@
+{{ define "main" }}
+<article class="latex-style">
+  {{ if .Params.show_date }}<p class="post-meta">{{ .Date.Format "Jan 2, 2006" }}</p>{{ end }}
+  {{ .Content }}
+</article>
+{{ end }}
