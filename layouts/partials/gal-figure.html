@@ -1,0 +1,42 @@
+{{/*
+  Renders one justified-gallery figure with Hugo-processed images.
+  Context: a single photo map with keys:
+    .src      – path relative to Hugo's assets/ dir (e.g. "photos/bench.jpg")
+    .caption  – optional caption string
+    .ar       – optional aspect-ratio override (rarely needed; derived from image if absent)
+*/}}
+{{ $orig := resources.Get .src }}
+{{ if not $orig }}
+  {{ errorf "gal-figure: image not found in assets/: %q — place it in assets/ and use a relative path (e.g. photos/bench.jpg)" .src }}
+{{ end }}
+
+{{/* Thumbnail: max 800×800, WebP at q80. Served in the gallery grid. */}}
+{{ $thumb := $orig.Fit "800x800 webp q80" }}
+
+{{/* Full: max 2400×2400, WebP at q85. Served in the lightbox. */}}
+{{ $full := $orig.Fit "2400x2400 webp q85" }}
+
+{{/* LQIP: 40-px-wide WebP at q40 → base64-inlined as background. No extra request. */}}
+{{ $lqip := $orig.Fit "40x40 webp q40" }}
+{{ $lqipB64 := $lqip.Content | base64Encode }}
+
+{{/*
+  data-w / data-h hold the lightbox image dimensions (integers).
+  The JS computes the aspect ratio from these at layout time — no Hugo float math needed,
+  and no dependency on naturalWidth (images don't need to be loaded first).
+*/}}
+<figure class="gal-fig"
+  data-src="{{ $full.RelPermalink }}"
+  data-caption="{{ .caption }}"
+  data-w="{{ $full.Width }}"
+  data-h="{{ $full.Height }}"
+  style="background-image:url('data:{{ $lqip.MediaType.String }};base64,{{ $lqipB64 }}')">
+  <img
+    src="{{ $thumb.RelPermalink }}"
+    width="{{ $thumb.Width }}"
+    height="{{ $thumb.Height }}"
+    alt="{{ .caption }}"
+    loading="lazy"
+    decoding="async">
+  {{ with .caption }}<figcaption>{{ . }}</figcaption>{{ end }}
+</figure>

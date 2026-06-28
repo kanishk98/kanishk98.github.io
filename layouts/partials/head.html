@@ -5,4 +5,5 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} &middot; {{ .Site.Title }}{{ end }}</title>
 <link rel="stylesheet" href="{{ "assets/main.css" | relURL }}">
+{{ if eq .Type "photos" }}<link rel="stylesheet" href="{{ "assets/photoswipe/photoswipe.css" | relURL }}">{{ end }}
 <link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" href="{{ "index.xml" | absURL }}">

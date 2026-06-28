@@ -8,4 +8,5 @@ Gemfile.lock
 public/
 resources/
 .hugo_build.lock
+.hugo_cache/
 .DS_Store

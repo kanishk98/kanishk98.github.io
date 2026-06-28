@@ -5,17 +5,8 @@
   {{ range .Params.sections }}
   <div class="gallery-section">
     {{ with .title }}<h2 class="gallery-section-title">{{ . }}</h2>{{ end }}
-    <div class="gallery-placeholder"></div>
     <div class="gallery-container" data-row-h="{{ default 200 $.Params.rowHeight }}">
-      {{ range .photos }}
-      <figure class="gal-fig"
-        data-src="{{ .src }}"
-        data-caption="{{ .caption }}"
-        {{ with .ar }}data-ar="{{ . }}"{{ end }}>
-        <img src="{{ .src }}" alt="{{ .caption }}">
-        {{ with .caption }}<figcaption>{{ . }}</figcaption>{{ end }}
-      </figure>
-      {{ end }}
+      {{ range .photos }}{{ partial "gal-figure.html" . }}{{ end }}
     </div>
   </div>
   {{ end }}
@@ -23,17 +14,8 @@
   {{/* Flat list fallback if no sections defined */}}
   {{ if not .Params.sections }}
   {{ with .Params.photos }}
-  <div class="gallery-placeholder"></div>
   <div class="gallery-container" data-row-h="{{ default 200 $.Params.rowHeight }}">
-    {{ range . }}
-    <figure class="gal-fig"
-      data-src="{{ .src }}"
-      data-caption="{{ .caption }}"
-      {{ with .ar }}data-ar="{{ . }}"{{ end }}>
-      <img src="{{ .src }}" alt="{{ .caption }}">
-      {{ with .caption }}<figcaption>{{ . }}</figcaption>{{ end }}
-    </figure>
-    {{ end }}
+    {{ range . }}{{ partial "gal-figure.html" . }}{{ end }}
   </div>
   {{ end }}
   {{ end }}
@@ -49,18 +31,9 @@
   {{ end }}
 </div>
 
-{{/* Lightbox overlay */}}
-<div id="gal-lightbox" class="gal-lightbox" role="dialog" aria-modal="true" aria-label="Photo lightbox">
-  <button class="gal-lb-close" aria-label="Close lightbox">&times;</button>
-  <button class="gal-lb-prev" aria-label="Previous photo">&#8249;</button>
-  <button class="gal-lb-next" aria-label="Next photo">&#8250;</button>
-  <div class="gal-lb-inner">
-    <img class="gal-lb-img" src="" alt="">
-    <p class="gal-lb-caption"></p>
-  </div>
-</div>
+<script type="module">
+import PhotoSwipeLightbox from '/assets/photoswipe/photoswipe-lightbox.esm.min.js';
 
-<script>
 (function () {
   'use strict';
 
@@ -76,10 +49,20 @@
     const W = container.clientWidth;
     if (!W) return;
 
+    // Derive data-ar from build-time data-w / data-h (integer HTML attributes, no load
+    // wait needed). Falls back to naturalWidth for any figure that lacks data-w/h.
     figs.forEach(function (f) {
-      const img = f.querySelector('img');
-      if (img.naturalWidth && img.naturalHeight) {
-        f.dataset.ar = (img.naturalWidth / img.naturalHeight).toFixed(4);
+      if (!f.dataset.ar) {
+        const w = parseInt(f.dataset.w, 10);
+        const h = parseInt(f.dataset.h, 10);
+        if (w && h) {
+          f.dataset.ar = (w / h).toFixed(4);
+        } else {
+          const img = f.querySelector('img');
+          if (img && img.naturalWidth && img.naturalHeight) {
+            f.dataset.ar = (img.naturalWidth / img.naturalHeight).toFixed(4);
+          }
+        }
       }
     });
 
@@ -133,36 +116,18 @@
 
   function initContainers() {
     document.querySelectorAll('.gallery-container').forEach(function (container) {
-      const imgs = Array.from(container.querySelectorAll('img'));
+      // data-ar is known at build time, so layout is immediate — no load wait needed.
+      layoutContainer(container);
+      container.classList.add('is-ready');
 
-      function finish() {
-        layoutContainer(container);
-        container.classList.add('is-ready');
-        var placeholder = container.parentElement.querySelector('.gallery-placeholder');
-        if (placeholder) placeholder.hidden = true;
-      }
-
-      if (!imgs.length) { finish(); return; }
-
-      var total = imgs.length;
-      var settled = 0;
-
-      imgs.forEach(function (img) {
-        // Use a one-shot flag per image so load+error can't both count
-        var done = false;
-        function onSettle() {
-          if (done) return;
-          done = true;
-          settled++;
-          if (settled >= total) finish();
-        }
-
-        // img.complete is true for both successfully loaded AND already-errored images
+      // Fade each image in as it arrives (lazy or cached).
+      container.querySelectorAll('img').forEach(function (img) {
+        function markLoaded() { img.classList.add('gal-img-loaded'); }
         if (img.complete) {
-          onSettle();
+          markLoaded();
         } else {
-          img.addEventListener('load', onSettle);
-          img.addEventListener('error', onSettle);
+          img.addEventListener('load',  markLoaded);
+          img.addEventListener('error', markLoaded);
         }
       });
     });
@@ -182,62 +147,78 @@
     });
   });
 
-  /* ── Lightbox ─────────────────────────────────────────────────────── */
+  /* ── PhotoSwipe lightbox ──────────────────────────────────────────── */
 
-  const lightbox  = document.getElementById('gal-lightbox');
-  const lbImg     = lightbox.querySelector('.gal-lb-img');
-  const lbCaption = lightbox.querySelector('.gal-lb-caption');
-  const lbClose   = lightbox.querySelector('.gal-lb-close');
-  const lbPrev    = lightbox.querySelector('.gal-lb-prev');
-  const lbNext    = lightbox.querySelector('.gal-lb-next');
+  const allFigs = Array.from(document.querySelectorAll('.gal-fig'));
 
-  var allFigs = [];
-  var currentIdx = 0;
-
-  function openLightbox(idx) {
-    currentIdx = idx;
-    const f = allFigs[idx];
-    lbImg.src = f.dataset.src || f.querySelector('img').src;
-    lbImg.alt = f.dataset.caption || '';
-    lbCaption.textContent = f.dataset.caption || '';
-    lbCaption.hidden = !f.dataset.caption;
-    lbPrev.hidden = allFigs.length <= 1;
-    lbNext.hidden = allFigs.length <= 1;
-    lightbox.classList.add('active');
-    document.body.style.overflow = 'hidden';
+  // Build data source using build-time dimensions stored in data-w / data-h.
+  // Falls back to naturalWidth/Height for any figure that lacks them.
+  function buildDataSource() {
+    return allFigs.map(function (fig) {
+      const img = fig.querySelector('img');
+      return {
+        src:    fig.dataset.src,
+        width:  parseInt(fig.dataset.w, 10)  || (img && img.naturalWidth)  || 1600,
+        height: parseInt(fig.dataset.h, 10)  || (img && img.naturalHeight) || 1200,
+        alt:    fig.dataset.caption || '',
+      };
+    });
   }
 
-  function closeLightbox() {
-    lightbox.classList.remove('active');
-    document.body.style.overflow = '';
-    setTimeout(function () {
-      if (!lightbox.classList.contains('active')) lbImg.src = '';
-    }, 250);
-  }
-
-  function navigate(dir) {
-    currentIdx = (currentIdx + dir + allFigs.length) % allFigs.length;
-    openLightbox(currentIdx);
-  }
-
-  document.querySelectorAll('.gal-fig').forEach(function (f, i) {
-    allFigs.push(f);
-    f.addEventListener('click', function () { openLightbox(i); });
+  const lightbox = new PhotoSwipeLightbox({
+    pswpModule: () => import('/assets/photoswipe/photoswipe.esm.min.js'),
+    initialZoomLevel: 'fit',
+    secondaryZoomLevel: 1.5,
+    maxZoomLevel: 4,
+    zoom: true,
   });
 
-  lbClose.addEventListener('click', closeLightbox);
-  lbPrev.addEventListener('click', function () { navigate(-1); });
-  lbNext.addEventListener('click', function () { navigate(1); });
-
-  lightbox.addEventListener('click', function (e) {
-    if (e.target === lightbox) closeLightbox();
+  // Render caption below each slide
+  lightbox.on('uiRegister', function () {
+    lightbox.pswp.ui.registerElement({
+      name: 'caption',
+      order: 9,
+      isButton: false,
+      appendTo: 'root',
+      html: '',
+      onInit: function (el, pswp) {
+        pswp.on('change', function () {
+          const slide = pswp.currSlide;
+          const caption = slide && slide.data && slide.data.alt;
+          el.textContent = caption || '';
+          el.style.display = caption ? '' : 'none';
+        });
+      },
+    });
   });
 
-  document.addEventListener('keydown', function (e) {
-    if (!lightbox.classList.contains('active')) return;
-    if (e.key === 'Escape')     closeLightbox();
-    if (e.key === 'ArrowLeft')  navigate(-1);
-    if (e.key === 'ArrowRight') navigate(1);
+  // Mousewheel: navigate prev/next when not zoomed; pass through when zoomed.
+  lightbox.on('bindEvents', function () {
+    const pswp = lightbox.pswp;
+    let wheelTimeout = null;
+
+    pswp.element.addEventListener('wheel', function (e) {
+      if (pswp.currSlide && pswp.currSlide.currZoomLevel > pswp.currSlide.zoomLevels.fit + 0.01) {
+        return;
+      }
+      e.preventDefault();
+      if (wheelTimeout) return;
+      wheelTimeout = setTimeout(function () { wheelTimeout = null; }, 400);
+      if (e.deltaY > 0 || e.deltaX > 0) {
+        pswp.next();
+      } else {
+        pswp.prev();
+      }
+    }, { passive: false });
+  });
+
+  lightbox.init();
+
+  allFigs.forEach(function (fig, i) {
+    fig.addEventListener('click', function () {
+      lightbox.options.dataSource = buildDataSource();
+      lightbox.loadAndOpen(i);
+    });
   });
 }());
 </script>

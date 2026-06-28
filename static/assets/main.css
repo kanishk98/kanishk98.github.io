@@ -237,26 +237,6 @@ article ol {
   margin: 1.5rem 0 0.6rem;
 }
 
-/* Loading shimmer shown before the gallery is ready */
-.gallery-placeholder {
-  width: 100%;
-  height: 420px;
-  border-radius: 2px;
-  background: linear-gradient(
-    90deg,
-    var(--border-color) 25%,
-    #d8d9da 50%,
-    var(--border-color) 75%
-  );
-  background-size: 200% 100%;
-  animation: gallery-shimmer 1.6s ease-in-out infinite;
-}
-
-@keyframes gallery-shimmer {
-  0%   { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
 /* The container that the JS justified-gallery writes inline widths/heights into */
 .gallery-container {
   display: flex;
@@ -264,7 +244,7 @@ article ol {
   gap: 3px;
   overflow: hidden; /* guard against sub-pixel rounding */
   opacity: 0;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.2s ease;
 }
 
 .gallery-container.is-ready {
@@ -276,7 +256,10 @@ article ol {
   overflow: hidden;
   cursor: zoom-in;
   position: relative;
-  background: var(--border-color); /* placeholder while loading */
+  /* Inline style sets the LQIP as background-image; these rules size it correctly. */
+  background-color: var(--border-color);
+  background-size: cover;
+  background-position: center;
   flex-shrink: 0;
 }
 
@@ -285,10 +268,17 @@ article ol {
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: filter 0.2s ease;
+  /* Start transparent so the LQIP backdrop is visible while the image loads. */
+  opacity: 0;
+  transition: opacity 0.4s ease, filter 0.2s ease;
 }
 
-.gal-fig:hover img {
+/* Image has finished loading (class added by JS). */
+.gal-fig img.gal-img-loaded {
+  opacity: 1;
+}
+
+.gal-fig:hover img.gal-img-loaded {
   filter: brightness(1.05);
 }
 
@@ -351,70 +341,15 @@ article ol {
   font-style: italic;
 }
 
-/* ---- Lightbox ---- */
-.gal-lightbox {
-  position: fixed;
-  inset: 0;
-  background: rgba(10, 10, 10, 0.93);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  opacity: 0;
-  visibility: hidden;
-  z-index: 9999;
-  transition: opacity 0.22s ease, visibility 0.22s ease;
-}
-
-.gal-lightbox.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.gal-lb-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
-  max-width: 95vw;
-  max-height: 95vh;
-}
-
-.gal-lb-img {
-  max-width: 95vw;
-  max-height: 88vh;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  display: block;
-}
-
-.gal-lb-caption {
+/* ---- Lightbox caption (PhotoSwipe registered UI element: name="caption") ---- */
+.pswp__caption {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
   color: rgba(255, 255, 255, 0.75);
   font-size: 0.88rem;
   text-align: center;
-  margin: 0;
+  max-width: min(480px, 90vw);
+  pointer-events: none;
 }
-
-.gal-lb-close,
-.gal-lb-prev,
-.gal-lb-next {
-  position: absolute;
-  background: none;
-  border: none;
-  color: rgba(255, 255, 255, 0.65);
-  cursor: pointer;
-  line-height: 1;
-  padding: 0.5rem 0.75rem;
-  transition: color 0.15s ease;
-}
-
-.gal-lb-close:hover,
-.gal-lb-prev:hover,
-.gal-lb-next:hover {
-  color: #fff;
-}
-
-.gal-lb-close { top: 0.75rem; right: 0.75rem; font-size: 1.4rem; }
-.gal-lb-prev  { left: 0.75rem;  top: 50%; transform: translateY(-50%); font-size: 2.5rem; }
-.gal-lb-next  { right: 0.75rem; top: 50%; transform: translateY(-50%); font-size: 2.5rem; }
