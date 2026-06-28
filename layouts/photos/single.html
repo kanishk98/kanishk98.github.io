@@ -165,12 +165,19 @@ import PhotoSwipeLightbox from '/assets/photoswipe/photoswipe-lightbox.esm.min.j
     });
   }
 
+  const CAPTION_H = 44; // px — must match the height in .pswp__caption CSS
+
   const lightbox = new PhotoSwipeLightbox({
     pswpModule: () => import('/assets/photoswipe/photoswipe.esm.min.js'),
     initialZoomLevel: 'fit',
     secondaryZoomLevel: 1.5,
     maxZoomLevel: 4,
     zoom: true,
+    // Reserve bottom space only for slides that actually have a caption,
+    // so the image is never obscured by the caption text.
+    paddingFn: function (viewportSize, itemData) {
+      return { top: 0, bottom: itemData.alt ? CAPTION_H : 0, left: 0, right: 0 };
+    },
   });
 
   // Render caption below each slide

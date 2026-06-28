@@ -342,14 +342,22 @@ article ol {
 }
 
 /* ---- Lightbox caption (PhotoSwipe registered UI element: name="caption") ---- */
+/*
+  Height must match the CAPTION_H constant in the PhotoSwipe paddingFn so the
+  image viewport ends exactly where the caption strip begins.
+*/
 .pswp__caption {
   position: absolute;
-  bottom: 1rem;
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  color: rgba(255, 255, 255, 0.75);
-  font-size: 0.88rem;
+  width: min(600px, calc(100vw - 120px)); /* 120px clears the prev/next arrow buttons */
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.82rem;
   text-align: center;
-  max-width: min(480px, 90vw);
   pointer-events: none;
 }
