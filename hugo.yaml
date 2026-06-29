@@ -4,15 +4,18 @@ locale: en-us
 title: Kanishk Kakar
 
 markup:
-  goldmark:
-    renderer:
-      unsafe: true
+    goldmark:
+        renderer:
+            unsafe: true
 
 menus:
-  main:
-    - name: home
-      url: /
-      weight: 1
-    - name: photos
-      url: /photos
-      weight: 2
+    main:
+        - name: home
+          url: /
+          weight: 1
+        - name: photos
+          url: /photos
+          weight: 2
+        - name: about me
+          url: /about
+          weight: 3

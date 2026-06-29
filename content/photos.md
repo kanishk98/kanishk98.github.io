@@ -3,9 +3,12 @@ title: Photos
 type: photos
 rowHeight: 210
 
-quote: And so with the sunshine and the great bursts of leaves growing on the trees, just as things grow in fast movies, I had that familiar conviction that life was beginning over again with the summer.
-# quoteAuthor: "F. Scott Fitzgerald"
-quoteBook: "F. Scott Fitzgerald, The Great Gatsby"
+# quote: And so with the sunshine and the great bursts of leaves growing on the trees, just as things grow in fast movies, I had that familiar conviction that life was beginning over again with the summer.
+# # quoteAuthor: "F. Scott Fitzgerald"
+# quoteBook: "F. Scott Fitzgerald, The Great Gatsby"
+
+quote: That was the year, my twenty-eighth, when I was discovering that not all of the promises would be kept, that some things are in fact irrevocable and that it had counted after all, every evasion and every procrastination, every mistake, every word, all of it.
+quoteBook: "Joan Didion, Goodbye to All That"
 
 # ── How to add photos ──────────────────────────────────────────────────────
 # Drop image files into assets/photos/ and add entries below.
@@ -50,4 +53,8 @@ sections:
             caption: "View from my desk on campus."
           - src: photos/dobra.jpeg
             caption: "I have never had chai this good, anywhere. Don't tell mum."
+          - src: photos/flowers.png
+            caption: "Sad little flower. Great breakfast."
+          - src: photos/skeleton.png
+            caption: "Aren't they supposed to be in my closet?"
 ---

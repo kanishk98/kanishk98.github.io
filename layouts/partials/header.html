@@ -1,7 +1,7 @@
 <header class="site-header">
   <div class="container">
     {{ if .IsHome }}
-      <h1 class="site-title"><a href="{{ "/about" | relURL }}">{{ .Site.Title }}</a></h1>
+      <h1 class="site-title">{{ .Site.Title }}</h1>
       <nav class="nav">
         {{ range .Site.Menus.main }}
         <a href="{{ .URL | relURL }}">{{ .Name }}</a>

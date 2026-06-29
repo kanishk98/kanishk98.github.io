@@ -95,9 +95,8 @@ img {
 
 /* ---- Site header ---- */
 .site-header {
-  padding: 2rem 0 1rem;
-  border-bottom: 1px solid var(--border-color);
-  margin-bottom: 2rem;
+  padding: 1.25rem 0 0.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .header-container {
@@ -208,7 +207,6 @@ article ol {
 .site-footer {
   margin-top: 3rem;
   padding: 1.5rem 0;
-  border-top: 1px solid var(--border-color);
   color: var(--text-secondary);
   font-size: 0.85rem;
 }
