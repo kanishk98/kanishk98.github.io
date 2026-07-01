@@ -3,6 +3,10 @@ disablePathToLower: true
 locale: en-us
 title: Kanishk Kakar
 
+caches:
+    images:
+        dir: :cacheDir/images
+
 markup:
     goldmark:
         renderer:
