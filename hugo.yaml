@@ -20,6 +20,3 @@ menus:
         - name: photos
           url: /photos
           weight: 2
-        - name: about me
-          url: /about
-          weight: 3
