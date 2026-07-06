@@ -56,4 +56,8 @@ sections:
             caption: "Aren't they supposed to be in my closet?"
           - src: photos/red.jpeg
             caption: "Seeing red."
+          - src: photos/cafe.jpeg
+            caption: "Pretty colors."
+          - src: photos/winter.jpeg
+            caption: "Winter on campus."
 ---
