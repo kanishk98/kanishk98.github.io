@@ -54,4 +54,6 @@ sections:
             caption: "Sad little flower. Great breakfast."
           - src: photos/skeleton.png
             caption: "Aren't they supposed to be in my closet?"
+          - src: photos/red.jpeg
+            caption: "Seeing red."
 ---
