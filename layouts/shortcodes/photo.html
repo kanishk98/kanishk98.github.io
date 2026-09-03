@@ -1,0 +1,50 @@
+{{/*
+  Design decisions:
+  - Mirrors the image pipeline of gal-figure.html (Fit "800x800 webp q80", LQIP at
+    40 px/q40 base64-inlined) so photo quality and loading behaviour match the gallery.
+  - Uses a static <figcaption> rendered below the image rather than an absolute-
+    positioned hover overlay, because captions on the About page are persistent
+    editorial text, not a tooltip.
+  - Omits all PhotoSwipe data-* attributes and cursor:zoom-in so clicking does nothing,
+    as requested.
+  - Reuses the .gal-img-loaded fade-in class and LQIP background technique from
+    gal-figure.html. A tiny inline <script> tags the image once loaded (safe to inline
+    here because it executes immediately after the element it targets).
+  - safeHTML is used on the caption so <br> works for multi-line captions.
+  Parameters:
+    src     – path relative to Hugo's assets/ dir (e.g. "photos/phone.jpeg")
+    caption – caption string displayed below the image; use <br> for line breaks
+*/}}
+{{ $src     := .Get "src"     }}
+{{ $caption := .Get "caption" }}
+{{ $orig    := resources.Get $src }}
+{{ if not $orig }}
+  {{ errorf "photo shortcode: image not found in assets/: %q — place it in assets/ and use a path relative to assets/ (e.g. photos/phone.jpeg)" $src }}
+{{ end }}
+{{ $thumb   := $orig.Fit "800x800 webp q80" }}
+{{ $lqip    := $orig.Fit "40x40 webp q40"   }}
+{{ $lqipB64 := $lqip.Content | base64Encode }}
+<figure class="about-fig">
+  <div class="about-fig-img"
+    style="background-image:url('data:{{ $lqip.MediaType.String }};base64,{{ $lqipB64 }}')">
+    <img
+      src="{{ $thumb.RelPermalink }}"
+      width="{{ $thumb.Width }}"
+      height="{{ $thumb.Height }}"
+      alt="{{ $caption }}"
+      loading="lazy"
+      decoding="async">
+  </div>
+  {{ with $caption }}<figcaption>{{ . | safeHTML }}</figcaption>{{ end }}
+</figure>
+<script>
+(function () {
+  var fig = document.currentScript.previousElementSibling;
+  var img = fig.querySelector('img');
+  function markLoaded() { img.classList.add('gal-img-loaded'); }
+  if (img.complete) { markLoaded(); } else {
+    img.addEventListener('load',  markLoaded);
+    img.addEventListener('error', markLoaded);
+  }
+}());
+</script>

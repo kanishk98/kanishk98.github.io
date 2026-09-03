@@ -367,3 +367,50 @@ article ol {
     align-items: flex-end;
   }
 }
+
+/* ---- About page photo ---- */
+/*
+  Design decisions:
+  - max-width: 400px caps the photo on large viewports; 100% keeps it responsive.
+  - figcaption is static text below the image (not a hover overlay) because captions
+    here are persistent editorial text, not a tooltip affordance.
+  - Shares the .gal-img-loaded fade-in animation and LQIP background technique with
+    the gallery so the load experience is identical.
+  - background-repeat: no-repeat on .about-fig-img prevents the 40px LQIP from tiling
+    in the rare case background-size: cover doesn't kick in before the real image loads.
+  - No cursor:zoom-in — clicking this image intentionally does nothing.
+*/
+.about-fig {
+  margin: 1.5rem auto;
+  max-width: 400px;
+}
+
+.about-fig-img {
+  overflow: hidden;
+  position: relative;
+  background-color: var(--border-color);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.about-fig img {
+  width: 100%;
+  height: auto;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.about-fig img.gal-img-loaded {
+  opacity: 1;
+}
+
+.about-fig figcaption {
+  font-size: 0.78rem;
+  font-style: italic;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-top: 0.6rem;
+  line-height: 1.4;
+}
