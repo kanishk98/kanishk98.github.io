@@ -60,4 +60,6 @@ sections:
             caption: "Pretty colors."
           - src: photos/winter.jpeg
             caption: "Winter on campus."
+          - src: photos/roadworks.jpg
+            caption: "Spring on campus."
 ---
