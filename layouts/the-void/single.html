@@ -1,0 +1,36 @@
+{{/*
+  Design decisions:
+  - Tweet data is read from site.Data.tweets so the template stays logic-free; all
+    content edits happen in data/tweets.yaml.
+  - Tweets are sorted by date descending (newest first) using Hugo's sort + reverse,
+    matching the expected mental model of a live feed.
+  - The timestamp is an <a> when a tweet.url is present, falling back to a plain <time>
+    element otherwise — keeps the feed usable for informal notes without a canonical URL.
+  - Engagement stats (likes, retweets, replies) use SVG icons inline so there are zero
+    external dependencies and the icons inherit the current text colour perfectly.
+  - The feed uses a single left border line + vertical rhythm rather than cards with
+    box-shadows, staying consistent with the site's low-contrast, typographic aesthetic.
+  - No avatar is shown — this is already implicitly the author's feed (personal blog
+    context), so the avatar would be decorative noise.
+  - The page's markdown body (.Content) is rendered above the feed in a .void-intro div
+    so the author can write an intro blurb directly in content/the-void.md without
+    touching the template.
+*/}}
+
+{{ define "main" }}
+{{ with .Content }}
+  <div class="void-intro">{{ . }}</div>
+{{ end }}
+<section class="tweet-feed">
+  {{ range sort hugo.Data.tweets "date" "desc" }}
+  <article class="tweet">
+    <div class="tweet-body">
+      <p class="tweet-text">{{ .text }}</p>
+    </div>
+    <footer class="tweet-footer">
+      <span class="tweet-timestamp">{{ (time .date).Format "Jan 2, 2006 · 3:04 PM" }}</span>
+    </footer>
+  </article>
+  {{ end }}
+</section>
+{{ end }}

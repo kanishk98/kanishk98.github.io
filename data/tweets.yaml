@@ -1,0 +1,9 @@
+# Design decisions:
+# - Storing tweets in data/tweets.yaml rather than content front matter keeps the feed
+#   data clearly separated from page config and makes it trivial to add/remove entries.
+# - Dates use RFC 3339 (ISO 8601) so Hugo's time.Parse handles them without a custom
+#   format string, and ordering is unambiguous when the list is sorted.
+
+- id: 1
+  text: "just got a blister from my stress ball we're in the end times"
+  date: "2026-09-06T22:14:00-04:00"

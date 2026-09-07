@@ -1,5 +1,5 @@
 ---
-title: Kanishk Kakar
+title: it's all about me
 ---
 
 I'm a software engineering student at Carnegie Mellon University in Pittsburgh, having returned to school after working as a software engineer at Goldman Sachs in Bangalore. I'm supported by the Bruce J. Nelson Graduate Fellowship.

@@ -20,6 +20,9 @@ menus:
         - name: photos
           url: /photos
           weight: 2
+        - name: the void
+          url: /the-void
+          weight: 3
         - name: about
           url: /about
-          weight: 3
+          weight: 4

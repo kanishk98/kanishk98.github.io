@@ -414,3 +414,56 @@ article ol {
   margin-top: 0.6rem;
   line-height: 1.4;
 }
+
+/* ---- Tweets feed ---- */
+/*
+  Design decisions:
+  - A thin left border on each tweet evokes a "thread" or feed line without the heavy
+    card treatment (box-shadow, full border) that would clash with the minimal aesthetic.
+  - The border is --border-color (same as <hr> and blockquote) so the tone is consistent.
+  - .tweet-text uses a slightly larger line-height than body prose (1.75) because short,
+    punchy tweet content reads better with a bit more breathing room between lines.
+  - Stats icons are sized at 1em so they scale with font-size changes without extra work.
+  - Gap between tweets is 0 with a bottom border rather than margin + border, so there's
+    no double-spacing between items at any viewport width.
+  - .tweet-feed uses font-family: monospace so the feed has a terminal/raw-log feel that
+    distinguishes it visually from regular prose without needing a new typeface import.
+*/
+.tweet-feed {
+  margin-top: 1.5rem;
+  font-family: monospace;
+}
+
+.tweet {
+  border-bottom: 1px solid var(--border-color);
+  padding: 1.25rem 0 1.25rem 1rem;
+  border-left: 3px solid var(--border-color);
+  margin-bottom: 0;
+  transition: border-left-color 0.15s ease;
+}
+
+.tweet:hover {
+  border-left-color: var(--link-color);
+}
+
+.tweet:last-child {
+  border-bottom: none;
+}
+
+.tweet-text {
+  margin: 0 0 0.75rem;
+  line-height: 1.75;
+  font-size: 0.97rem;
+}
+
+.tweet-footer {
+  display: flex;
+  align-items: center;
+}
+
+.tweet-timestamp {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+

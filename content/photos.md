@@ -1,5 +1,5 @@
 ---
-title: Photos
+title: photos
 type: photos
 rowHeight: 210
 
